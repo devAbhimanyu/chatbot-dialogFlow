@@ -10,7 +10,10 @@ const credentials = {
 
 console.log(projectId);
 
-const sessionClient = new dialogFlow.SessionsClient({ projectId, credentials });
+const sessionClient = new dialogFlow.SessionsClient({
+  projectId: projectId,
+  credentials: credentials,
+});
 const sessionPath = sessionClient.sessionPath(projectId, config.dfSessionID);
 
 const textQuery = async (text, params) => {
