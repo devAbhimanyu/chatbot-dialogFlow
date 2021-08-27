@@ -17,12 +17,12 @@ module.exports = (app) => {
   });
 
   app.post('/api/df_event_query', async (req, res, next) => {
-    try {
-      const response = await eventQuery(req.body.event);
-      res.send(response);
-    } catch (err) {
-      res.status(500);
-      next('error', { error: err });
-    }
+    // try {
+    const response = await eventQuery(req.body.event);
+    res.send(response);
+    // } catch (err) {
+    //   res.status(500);
+    //   next('error', { error: err });
+    // }
   });
 };

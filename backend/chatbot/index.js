@@ -8,7 +8,7 @@ const credentials = {
   private_key: config.googlePrivateKey,
 };
 
-console.log(config.googleClientEmail, config.googlePrivateKey);
+console.log(projectId);
 
 const sessionClient = new dialogFlow.SessionsClient({ projectId, credentials });
 const sessionPath = sessionClient.sessionPath(projectId, config.dfSessionID);
@@ -49,14 +49,14 @@ const eventQuery = async (event, params = {}) => {
       },
     },
   };
-  try {
-    const responses = await sessionClient.detectIntent(request);
-    console.log('Detected event');
-    const result = responses[0].queryResult;
-    return result;
-  } catch (err) {
-    throw err;
-  }
+  // try {
+  const responses = await sessionClient.detectIntent(request);
+  console.log('Detected event');
+  const result = responses[0].queryResult;
+  return result;
+  // } catch (err) {
+  //   throw err;
+  // }
 };
 
 module.exports = { textQuery, eventQuery };
