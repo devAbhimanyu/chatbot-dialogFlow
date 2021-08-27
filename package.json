@@ -8,8 +8,10 @@
     "npm": "7.15.0"
   },
   "scripts": {
-    "dev": "nodemon backend/index.js",
+    "server": "nodemon backend/index.js",
+    "client": "npm run start --prefix client",
     "start": "node backend/index.js",
+    "dev": "concurrently \"npm run server\"  \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "commit": "git cz"
   },
@@ -30,7 +32,9 @@
   },
   "devDependencies": {
     "@google-cloud/storage": "^5.14.0",
+    "concurrently": "^6.2.1",
     "git-cz": "^4.7.6",
+    "http-proxy-middleware": "^2.0.1",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
     "nodemon": "^2.0.12",
