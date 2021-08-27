@@ -1,0 +1,46 @@
+{
+  "name": "chat-bot",
+  "version": "1.0.0",
+  "description": "chat bot built on dialogFlow",
+  "main": "index.js",
+  "engines": {
+    "node": "14.15.4",
+    "npm": "7.15.0"
+  },
+  "scripts": {
+    "dev": "node backend/index.js",
+    "start": "node backend/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commit": "git cz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devAbhimanyu/chatbot-dialogFlow.git"
+  },
+  "author": "Manyu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devAbhimanyu/chatbot-dialogFlow/issues"
+  },
+  "homepage": "https://github.com/devAbhimanyu/chatbot-dialogFlow#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "git-cz": "^4.7.6",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2"
+  },
+  "lint-staged": {
+    "backend/*.{js,ts,tsx}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
