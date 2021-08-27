@@ -8,6 +8,8 @@ const credentials = {
   private_key: config.googlePrivateKey,
 };
 
+console.log(config.googleClientEmail, config.googlePrivateKey);
+
 const sessionClient = new dialogFlow.SessionsClient({ projectId, credentials });
 const sessionPath = sessionClient.sessionPath(projectId, config.dfSessionID);
 
