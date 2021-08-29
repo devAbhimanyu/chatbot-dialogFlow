@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  height: 300px;
+}
+
+.cardContainer {
+  height: 270px;
+  padding-right: 30px;
+  /*  */
+}
+
+.cardContainer .imgContainer {
+  width: 240px;
+}

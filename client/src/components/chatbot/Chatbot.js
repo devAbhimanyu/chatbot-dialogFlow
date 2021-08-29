@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 import Cookie from 'universal-cookie';
-import Message from './Message';
+import Messages from '../messages/Messages';
 import styles from './Chatbot.module.css';
 
 const cookie = new Cookie();
@@ -65,21 +65,6 @@ class Chatbot extends Component {
     }));
   };
 
-  renderMessages = (messages) => {
-    if (messages) {
-      return messages.map((msg, i) => {
-        console.log(msg);
-        return (
-          <Message
-            key={`message-${i}`}
-            speaks={msg.speaks}
-            text={msg.msg.text.text}
-          />
-        );
-      });
-    } else return null;
-  };
-
   inputChangeHandler = (e) => {
     if (e.key === 'Enter') {
       this.df_text_query(e.target.value);
@@ -105,19 +90,31 @@ class Chatbot extends Component {
       <div className={styles.chatbot}>
         <div id='chatbot' className={styles.section}>
           <h2>Chatbot</h2>
-          {this.renderMessages(this.state.messages)}
           <div
-            ref={(el) => {
-              this.messageRef = el;
+            style={{
+              minHeight: 388,
+              maxHeight: 388,
+              width: '100%',
+              overflow: 'auto',
             }}
-            style={{ float: 'left', clear: 'both' }}
-          ></div>
+          >
+            <Messages messages={this.state.messages} />
+            <div
+              id='message-ref'
+              ref={(el) => {
+                this.messageRef = el;
+              }}
+            ></div>
+          </div>
+
           <input
             ref={(el) => {
               this.inputRef = el;
             }}
+            className={`col s12 ${styles.input}`}
             type='text'
             onKeyPress={this.inputChangeHandler}
+            placeholder='Type to begin'
           />
         </div>
       </div>
