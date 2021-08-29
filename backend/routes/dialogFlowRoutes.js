@@ -8,7 +8,7 @@ module.exports = (app) => {
   app.post('/api/df_text_query', async (req, res, next) => {
     // console.log(req.body.text);
     try {
-      const response = await textQuery(req.body.text);
+      const response = await textQuery(req.body.text, req.body.userId);
       res.send(response);
     } catch (err) {
       res.status(500);
@@ -17,12 +17,12 @@ module.exports = (app) => {
   });
 
   app.post('/api/df_event_query', async (req, res, next) => {
-    // try {
-    const response = await eventQuery(req.body.event);
-    res.send(response);
-    // } catch (err) {
-    //   res.status(500);
-    //   next('error', { error: err });
-    // }
+    try {
+      const response = await eventQuery(req.body.event, req.body.userId);
+      res.send(response);
+    } catch (err) {
+      res.status(500);
+      next('error', { error: err });
+    }
   });
 };

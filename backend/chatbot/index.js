@@ -14,9 +14,13 @@ const sessionClient = new dialogFlow.SessionsClient({
   projectId: projectId,
   credentials: credentials,
 });
-const sessionPath = sessionClient.sessionPath(projectId, config.dfSessionID);
 
-const textQuery = async (text, params) => {
+const textQuery = async (text, userId, params) => {
+  const sessionPath = sessionClient.sessionPath(
+    projectId,
+    config.dfSessionID + userId,
+  );
+
   const request = {
     session: sessionPath,
     queryInput: {
@@ -41,7 +45,12 @@ const textQuery = async (text, params) => {
   }
 };
 
-const eventQuery = async (event, params = {}) => {
+const eventQuery = async (event, userId, params = {}) => {
+  console.log(userId);
+  const sessionPath = sessionClient.sessionPath(
+    projectId,
+    config.dfSessionID + userId,
+  );
   const request = {
     session: sessionPath,
     queryInput: {

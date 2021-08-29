@@ -1,0 +1,11 @@
+.chatbot {
+  height: 400px;
+  width: 400px;
+  float: right;
+}
+
+.chatbot .section {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
