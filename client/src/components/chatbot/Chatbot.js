@@ -42,9 +42,10 @@ class Chatbot extends Component {
         msg,
       };
     });
-
+    const allMsgs = [...this.state.messages, ...messages];
+    console.log(allMsgs);
     this.setState((prev) => ({
-      messages: [...prev.messages, ...messages],
+      messages: allMsgs,
     }));
   };
 
@@ -63,6 +64,22 @@ class Chatbot extends Component {
     this.setState((prev) => ({
       messages: [...prev.messages, ...messages],
     }));
+  };
+
+  handleQuickReplyPayload = (event, payload, text) => {
+    event.preventDefault();
+    event.stopPropagation();
+    switch (payload) {
+      case 'recommended_yes':
+        this.df_event_query('SHOW_RECOMMENDATIONS');
+        break;
+      case 'training_masterclass':
+        this.df_event_query('MASTERCLASS');
+        break;
+      default:
+        this.df_text_query(text);
+        break;
+    }
   };
 
   inputChangeHandler = (e) => {
@@ -88,8 +105,8 @@ class Chatbot extends Component {
   render() {
     return (
       <div className={styles.chatbot}>
-        <div id='chatbot' className={styles.section}>
-          <h2>Chatbot</h2>
+        <h2>Chatbot</h2>
+        <div id='chatbot-secontion' className={styles.section}>
           <div
             style={{
               minHeight: 388,
@@ -98,7 +115,10 @@ class Chatbot extends Component {
               overflow: 'auto',
             }}
           >
-            <Messages messages={this.state.messages} />
+            <Messages
+              messages={this.state.messages}
+              quickReplyHandler={this.handleQuickReplyPayload}
+            />
             <div
               id='message-ref'
               ref={(el) => {

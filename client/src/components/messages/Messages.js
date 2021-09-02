@@ -1,7 +1,8 @@
 import React from 'react';
 import Message from './Message';
+import QuickReplies from '../quickReplies/QuickReplies';
 import Cards from '../layout/cards/Cards';
-const Messages = ({ messages = [] }) => {
+const Messages = ({ messages = [], quickReplyHandler }) => {
   if (messages) {
     return messages.map((message, i) => {
       if (message?.msg?.text?.text) {
@@ -33,7 +34,22 @@ const Messages = ({ messages = [] }) => {
             </div>
           </div>
         );
+      } else if (message?.msg?.payload?.fields?.quick_replies) {
+        return (
+          <QuickReplies
+            text={
+              message.msg.payload.fields.text
+                ? message.msg.payload.fields.text
+                : null
+            }
+            key={i}
+            replyClick={quickReplyHandler}
+            speaks={message.speaks}
+            payload={message.msg.payload.fields.quick_replies.listValue.values}
+          />
+        );
       }
+      return null;
     });
   } else return null;
 };
