@@ -1,11 +1,13 @@
 .chatbot {
-  height: 500px;
   width: 400px;
   float: right;
   position: absolute;
   bottom: 0;
   right: 0;
   border: 1px solid lightblue;
+}
+.chatbot .open {
+  height: 500px;
 }
 
 .chatbot .section {

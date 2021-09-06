@@ -4,10 +4,10 @@ import './App.css';
 
 function App() {
   return (
-    <div className='App'>
+    <div>
       <BrowserRouter>
-        <div>
-          <Header />
+        <Header />
+        <div className='container'>
           <Route exact path='/' component={Landing} />
           <Route exact path='/about' component={About} />
           <Route exact path='/shop' component={Shop} />

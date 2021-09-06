@@ -14,9 +14,11 @@ class Chatbot extends Component {
   // }
   state = {
     messages: [],
+    showBot: false,
   };
   messageRef = null;
   inputRef = null;
+
   df_text_query = async (text) => {
     const query = {
       speaks: 'me',
@@ -44,9 +46,7 @@ class Chatbot extends Component {
     });
     const allMsgs = [...this.state.messages, ...messages];
     console.log(allMsgs);
-    this.setState((prev) => ({
-      messages: allMsgs,
-    }));
+    this.setState({ messages: allMsgs });
   };
 
   df_event_query = async (event) => {
@@ -96,47 +96,75 @@ class Chatbot extends Component {
   }
 
   componentDidUpdate() {
-    this.messageRef.scrollIntoView({ behaviour: 'smooth' });
+    if (this.messageRef)
+      this.messageRef.scrollIntoView({ behaviour: 'smooth' });
     if (this.inputRef) {
       this.inputRef.focus();
     }
   }
 
+  toggleChatbot = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.setState((prev) => ({
+      showBot: !prev.showBot,
+    }));
+  };
+
   render() {
     return (
-      <div className={styles.chatbot}>
-        <h2>Chatbot</h2>
-        <div id='chatbot-secontion' className={styles.section}>
-          <div
-            style={{
-              minHeight: 388,
-              maxHeight: 388,
-              width: '100%',
-              overflow: 'auto',
-            }}
-          >
-            <Messages
-              messages={this.state.messages}
-              quickReplyHandler={this.handleQuickReplyPayload}
-            />
-            <div
-              id='message-ref'
-              ref={(el) => {
-                this.messageRef = el;
-              }}
-            ></div>
+      <div
+        className={` ${styles.chatbot} ${
+          this.state.showBot ? styles.open : ''
+        }`}
+      >
+        <nav>
+          <div className='nav-wrapper'>
+            <a href='/' className='brand-logo left'>
+              ChatBot
+            </a>
+            <ul id='nav-mobile' className='right hide-on-med-and-down'>
+              <li>
+                <a href='/' onClick={this.toggleChatbot}>
+                  {this.state.showBot ? 'Close' : 'Show'}
+                </a>
+              </li>
+            </ul>
           </div>
+        </nav>
+        {this.state.showBot && (
+          <div id='chatbot-secontion' className={styles.section}>
+            <div
+              style={{
+                minHeight: 388,
+                maxHeight: 388,
+                width: '100%',
+                overflow: 'auto',
+              }}
+            >
+              <Messages
+                messages={this.state.messages}
+                quickReplyHandler={this.handleQuickReplyPayload}
+              />
+              <div
+                id='message-ref'
+                ref={(el) => {
+                  this.messageRef = el;
+                }}
+              ></div>
+            </div>
 
-          <input
-            ref={(el) => {
-              this.inputRef = el;
-            }}
-            className={`col s12 ${styles.input}`}
-            type='text'
-            onKeyPress={this.inputChangeHandler}
-            placeholder='Type to begin'
-          />
-        </div>
+            <input
+              ref={(el) => {
+                this.inputRef = el;
+              }}
+              className={`col s12 ${styles.input}`}
+              type='text'
+              onKeyPress={this.inputChangeHandler}
+              placeholder='Type to begin'
+            />
+          </div>
+        )}
       </div>
     );
   }
